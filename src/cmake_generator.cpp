@@ -649,7 +649,7 @@ static std::string vcpkg_escape_identifier(const std::string &name) {
             throw std::runtime_error("Non-ASCII characters are not allowed in [project].name when using [vcpkg]");
         }
 
-        if (ch == '_' || ch == ' ') {
+        if (ch != '-' && !std::isalnum(ch)) {
             ch = '-';
         }
 
