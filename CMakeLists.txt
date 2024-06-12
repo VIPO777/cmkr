@@ -22,7 +22,7 @@ project(cmkr
 	LANGUAGES
 		CXX
 	VERSION
-		0.2.29
+		0.2.30
 	DESCRIPTION
 		"CMakeLists generator from TOML"
 )
@@ -58,12 +58,9 @@ generate_documentation()
 
 # Target: cmkr
 set(cmkr_SOURCES
-	"src/arguments.cpp"
-	"src/build.cpp"
-	"src/cmake_generator.cpp"
-	"src/help.cpp"
-	"src/main.cpp"
-	"src/project_parser.cpp"
+	cmake.toml
+	"cmake/cmkr.cmake"
+	"cmake/version.hpp.in"
 	"include/arguments.hpp"
 	"include/build.hpp"
 	"include/cmake_generator.hpp"
@@ -71,9 +68,12 @@ set(cmkr_SOURCES
 	"include/help.hpp"
 	"include/literals.hpp"
 	"include/project_parser.hpp"
-	"cmake/cmkr.cmake"
-	"cmake/version.hpp.in"
-	cmake.toml
+	"src/arguments.cpp"
+	"src/build.cpp"
+	"src/cmake_generator.cpp"
+	"src/help.cpp"
+	"src/main.cpp"
+	"src/project_parser.cpp"
 )
 
 add_executable(cmkr)
@@ -94,7 +94,6 @@ target_link_libraries(cmkr PRIVATE
 	ghc_filesystem
 	mpark_variant
 	ordered_map
-	nlohmann_json
 )
 
 get_directory_property(CMKR_VS_STARTUP_PROJECT DIRECTORY ${PROJECT_SOURCE_DIR} DEFINITION VS_STARTUP_PROJECT)
@@ -103,7 +102,7 @@ if(NOT CMKR_VS_STARTUP_PROJECT)
 endif()
 
 set(CMKR_TARGET cmkr)
-generate_resources(${CMKR_TARGET})
+include("cmake/custom_targets.cmake")
 
 install(
 	TARGETS

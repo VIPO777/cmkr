@@ -4,7 +4,7 @@ cmkr-include = false
 
 [project]
 name = "cmkr"
-version = "0.2.29"
+version = "0.2.30"
 description = "CMakeLists generator from TOML"
 languages = ["CXX"]
 include-after = [
@@ -36,11 +36,8 @@ link-libraries = [
     "ghc_filesystem",
     "mpark_variant",
     "ordered_map",
-    "nlohmann_json",
 ]
-cmake-after = """
-generate_resources(${CMKR_TARGET})
-"""
+include-after = ["cmake/custom_targets.cmake"]
 
 [[install]]
 targets = ["cmkr"]
