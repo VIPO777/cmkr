@@ -45,9 +45,14 @@ struct Vcpkg {
     struct Package {
         std::string name;
         std::vector<std::string> features;
+        bool default_features = true;
     };
 
     std::vector<Package> packages;
+
+    // https://github.com/Microsoft/vcpkg-docs/blob/main/vcpkg/users/buildsystems/cmake-integration.md
+    std::vector<std::string> overlay_ports;
+    std::vector<std::string> overlay_triplets;
 
     bool enabled() const {
         return !packages.empty();
@@ -155,7 +160,7 @@ struct Content {
     Condition<std::string> cmake_after;
     ConditionVector include_before;
     ConditionVector include_after;
-    bool system;
+    bool system = false;
     std::string subdir;
 };
 
